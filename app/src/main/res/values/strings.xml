@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Seven Minutes Workout</string>
+    <string name="ui__start_timer_text">START</string>
+    <string name="rest_title_text">GET READY FOR</string>
+    <string name="exercise_finish_message">Congratulations! You have completed all exercises.</string>
+    <string name="upcoming_exercise_prefix">Upcoming Exercise Is</string>
+</resources>
