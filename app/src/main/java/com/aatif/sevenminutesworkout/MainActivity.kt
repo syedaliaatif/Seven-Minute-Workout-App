@@ -21,6 +21,9 @@ class MainActivity : AppCompatActivity() {
             startTimer?.background = getDrawable(R.drawable.ui__start_timer_background_clicked)
             startActivity(Intent(this, TimerActivity::class.java ))
         }
+        binding.btnBmiCalculator.setOnClickListener {
+            startActivity(Intent(this, BMIActivity::class.java))
+        }
     }
 
     override fun onResume() {

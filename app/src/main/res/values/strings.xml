@@ -4,4 +4,11 @@
     <string name="rest_title_text">GET READY FOR</string>
     <string name="exercise_finish_message">Congratulations! You have completed all exercises.</string>
     <string name="upcoming_exercise_prefix">Upcoming Exercise Is</string>
+    <string name="bmi_result_prefix">Your BMI is </string>
+    <string name="bmi_activity_title">BMI CALCULATOR</string>
+    <string name="height_hint_in_meters">Height (Ms)</string>
+    <string name="height_hint_in_feets">Height (Fts)</string>
+    <string name="weight_hint_in_kgs">Weight (Kgs)</string>
+    <string name ="weight_hint_in_pounds">Weight (Pounds)</string>
+    <string name="bmi_calculate_btn_text">Calculate</string>
 </resources>
