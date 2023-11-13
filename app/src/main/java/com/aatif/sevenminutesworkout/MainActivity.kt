@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         startTimerFrameLayout = binding.flStartTimer
         startTimer?.setOnClickListener {
             startTimer?.background = getDrawable(R.drawable.ui__start_timer_background_clicked)
-            startActivity(Intent(this, TimerActivity::class.java ))
+            startActivity(Intent(this, ExerciseSelectionActivity::class.java))
         }
         binding.btnBmiCalculator.setOnClickListener {
             startActivity(Intent(this, BMIActivity::class.java))

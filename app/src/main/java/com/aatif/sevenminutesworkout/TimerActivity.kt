@@ -19,9 +19,10 @@ class TimerActivity : AppCompatActivity() {
     lateinit var binding : ActivityTimerBinding
     private var currentTimer : CountDownTimer?=null
     private var numExerciseCompleted = 0
-    private val exercises = Constants.getDefaultExercises().toMutableList()
+    private var exercises = Constants.getDefaultExercises().toMutableList()
     private var mediaPlayer: MediaPlayer? = null
     private lateinit var adapter: PaginationAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)
@@ -31,6 +32,18 @@ class TimerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.tlbTimerPage.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            intent.extras?.getParcelableArrayList(Constants.EXERCISE_LIST_KEY, Exercise::class.java)
+                ?.let{
+                    exercises = it.toMutableList()
+                }
+        }
+        else{
+            intent.extras?.getParcelableArrayList<Exercise>(Constants.EXERCISE_LIST_KEY)?.let{
+                exercises = it.toMutableList()
+            }
         }
         setUpPagination()
         showRestView()
@@ -70,7 +83,7 @@ class TimerActivity : AppCompatActivity() {
         exercises.updateStatus(numExerciseCompleted,ExerciseStatus.INPROGRESS)
         playSound()
         hideImageView()
-        showTitleView("GET READY FOR")
+        showTitleView(getString(R.string.rest_title_text))
         showProgressView(10)
         showUpcomingExerciseView()
         startTimer(10){showExerciseView()}

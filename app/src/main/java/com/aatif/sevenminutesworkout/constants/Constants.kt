@@ -64,4 +64,6 @@ object Constants {
             )
         )
     }
+
+    const val EXERCISE_LIST_KEY = "EXERCISES_SELECTED"
 }

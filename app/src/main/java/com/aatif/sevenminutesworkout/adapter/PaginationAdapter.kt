@@ -23,7 +23,7 @@ internal class PaginationAdapter:Adapter<PaginationAdapter.PaginationItemViewHol
     }
 
     override fun onBindViewHolder(holder: PaginationItemViewHolder, position: Int) {
-        holder.updateText(data[position].id.toString())
+        holder.updateText((position+1).toString())
         holder.updateStatus(data[position].exerciseStatus)
     }
 
