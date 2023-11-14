@@ -1,19 +1,31 @@
 package com.aatif.sevenminutesworkout
 
+
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.aatif.sevenminutesworkout.adapter.PaginationAdapter
 import com.aatif.sevenminutesworkout.constants.Constants
 import com.aatif.sevenminutesworkout.databinding.ActivityTimerBinding
 import com.aatif.sevenminutesworkout.model.Exercise
 import com.aatif.sevenminutesworkout.model.ExerciseStatus
+import com.aatif.sevenminutesworkout.room.database.HistoryDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 class TimerActivity : AppCompatActivity() {
     lateinit var binding : ActivityTimerBinding
@@ -22,6 +34,8 @@ class TimerActivity : AppCompatActivity() {
     private var exercises = Constants.getDefaultExercises().toMutableList()
     private var mediaPlayer: MediaPlayer? = null
     private lateinit var adapter: PaginationAdapter
+    private lateinit var db :HistoryDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +47,10 @@ class TimerActivity : AppCompatActivity() {
         binding.tlbTimerPage.setNavigationOnClickListener {
             onBackPressed()
         }
+
+       db = Room.databaseBuilder(applicationContext,
+            HistoryDatabase::class.java,
+            "HistoryDatabase" ).build()
 
         if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getParcelableArrayList(Constants.EXERCISE_LIST_KEY, Exercise::class.java)
@@ -199,6 +217,7 @@ class TimerActivity : AppCompatActivity() {
         adapter.setContent(exercises)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun MutableList<Exercise>.updateStatus(position: Int, status:ExerciseStatus ){
         if(position == exercises.size){
             return
@@ -206,6 +225,19 @@ class TimerActivity : AppCompatActivity() {
         exercises[position] = exercises[position].copy(
             exerciseStatus = status
         )
+        val uuid = UUID.randomUUID()
+        val datestr = OffsetDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        if(status == ExerciseStatus.COMPLETED) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                db.historyDao().updateHistory(
+                    uuid = uuid.toString(),
+                    date = datestr,
+                    id = exercises[position].id,
+                    name = exercises[position].name,
+                    imageResource = exercises[position].imageResource ?: R.drawable.ic_squat
+                )
+            }
+        }
         adapter.updateContent(position, exercises[position])
     }
 

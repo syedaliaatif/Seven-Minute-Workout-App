@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/tlb_history_page"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:elevation="8dp"
+        android:background="@color/black"
+        app:navigationIconTint="@color/white"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+        app:title="History"
+        />
+
+    <FrameLayout
+        android:id="@+id/fl_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_by_exercise"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="80dp"
+                android:background="#1E1E1E"
+                android:gravity="center"
+                android:text="By Exercise"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+            <TextView
+                android:id="@+id/tv_by_set"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="80dp"
+                android:gravity="center"
+                android:text="By Set"
+                android:background="@color/grey_history_page"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_anchor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:src="@drawable/anchor_image"
+            android:rotation="-90"
+            android:elevation="8dp"
+            />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:foregroundGravity="center_horizontal"
+        />
+
+</LinearLayout>

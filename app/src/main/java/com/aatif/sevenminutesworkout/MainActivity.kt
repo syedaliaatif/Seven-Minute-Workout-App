@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private var startTimer: ImageButton? = null
     private var startTimerFrameLayout: FrameLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -23,6 +24,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnBmiCalculator.setOnClickListener {
             startActivity(Intent(this, BMIActivity::class.java))
+        }
+        binding.btnHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 

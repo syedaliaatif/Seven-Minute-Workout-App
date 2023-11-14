@@ -9,4 +9,6 @@
     <color name ="light_red">@android:color/holo_red_light</color>
     <color name ="dark_red">@android:color/holo_red_dark</color>
     <color name ="grey">#b8b8b8</color>
+    <color name ="history_page_active">#1E1E1E</color>
+    <color name="grey_history_page">#d9d9d9</color>
 </resources>

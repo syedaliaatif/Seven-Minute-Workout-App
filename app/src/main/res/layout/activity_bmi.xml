@@ -28,6 +28,7 @@
         android:fontFamily="@font/playfair_display_bold"
         android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
         android:text="@string/bmi_activity_title"
+        android:elevation="16dp"
         android:paddingHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tlb_bmi_page"
@@ -63,7 +64,8 @@
             android:textAlignment="viewStart"
             android:text="Std. Metrics"
             android:textSize="16sp"
-            tools:ignore="RtlCompat" />
+            tools:ignore="RtlCompat"
+            />
     </FrameLayout>
 
 
