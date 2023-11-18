@@ -13,7 +13,10 @@ This app is a helpful app while training. You have a timer for each exercises an
     <p align="center">
       <img src="https://user-images.githubusercontent.com/105696943/284024348-adb06bfb-801c-4f40-a082-9fbc09c660de.png" width="200" height="400" alt="accessibility text">
    </p>
-   
+2. BMI Screen. You have two units to choose either American or standard. Then enter your height and weight in the specified units and get your BMI on pression Calculate Button.
+   <p align="center">
+      <img src="https://user-images.githubusercontent.com/105696943/284024487-3088db79-4886-444b-9fca-2380c6843f96.png" width="200" height="400" alt="accessibility text">
+   </p>
 # Future of the app 
 1. Add history activity to the app.
 2. Allow user to create their own set of exercises and timer duration.
