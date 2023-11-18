@@ -27,6 +27,19 @@ This app is a helpful app while training. You have a timer for each exercises an
          </p>
         
     </ol>
+4. Exercise Selection Screen - You can choose what exercises you will perform in the current set.
+   <p align="center">
+      <img src="https://user-images.githubusercontent.com/105696943/284024617-3494144b-80a6-42ab-ae08-88d2d13d8af9.png" width="200" height="400" alt="accessibility text">
+   </p>
+5. Rest Screen - In between two exercise you get a 10 second rest timer. This is how this screen looks.
+   <p align="center">
+      <img src="https://user-images.githubusercontent.com/105696943/284024668-f8805eff-9769-42f1-9dce-c5a53b8eeab7.png" width="200" height="400" alt="accessibility text">
+   </p>
+6. Exercise Screen - This screen shows the timer when you are performing any exercise. There is notification sound as well when you finish an exercise.
+   <p align="center">
+      <img src="https://user-images.githubusercontent.com/105696943/284024670-eaddb198-a3c3-4588-997f-b0f76262a5a6.png" width="200" height="400" alt="accessibility text">
+   </p>
+7. Exercise Finishing Screen - TBD. This hasn't been created yet. 
 # Future of the app 
 1. Add history activity to the app.
 2. Allow user to create their own set of exercises and timer duration.
