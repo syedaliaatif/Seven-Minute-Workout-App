@@ -22,6 +22,7 @@ import com.aatif.sevenminutesworkout.model.ExerciseStatus
 import com.aatif.sevenminutesworkout.room.database.HistoryDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -35,6 +36,7 @@ class TimerActivity : AppCompatActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private lateinit var adapter: PaginationAdapter
     private lateinit var db :HistoryDatabase
+    private lateinit var sessionUUID: UUID
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +65,7 @@ class TimerActivity : AppCompatActivity() {
                 exercises = it.toMutableList()
             }
         }
+        sessionUUID = UUID.randomUUID()
         setUpPagination()
         showRestView()
     }
@@ -228,14 +231,17 @@ class TimerActivity : AppCompatActivity() {
         val uuid = UUID.randomUUID()
         val datestr = OffsetDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         if(status == ExerciseStatus.COMPLETED) {
-            lifecycleScope.launch(Dispatchers.IO) {
-                db.historyDao().updateHistory(
-                    uuid = uuid.toString(),
-                    date = datestr,
-                    id = exercises[position].id,
-                    name = exercises[position].name,
-                    imageResource = exercises[position].imageResource ?: R.drawable.ic_squat
-                )
+            lifecycleScope.launch{
+                withContext(Dispatchers.IO) {
+                    db.historyDao().updateHistory(
+                        uuid = uuid.toString(),
+                        date = datestr,
+                        id = exercises[position].id,
+                        name = exercises[position].name,
+                        imageResource = exercises[position].imageResource ?: R.drawable.ic_squat,
+                        sessionUUID = sessionUUID.toString()
+                    )
+                }
             }
         }
         adapter.updateContent(position, exercises[position])

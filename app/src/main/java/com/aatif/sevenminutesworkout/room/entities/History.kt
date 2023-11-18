@@ -11,4 +11,5 @@ data class History (
     @ColumnInfo(name = "exercise_id") val id: Int,
     @ColumnInfo(name = "exercise_name") val name:String,
     @ColumnInfo(name = "exercise_image_resource")val imageResource:Int,
+    @ColumnInfo(name = "session_uuid") val sessionUUID: String
 )

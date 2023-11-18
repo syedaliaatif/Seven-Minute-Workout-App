@@ -1,11 +1,14 @@
 package com.aatif.sevenminutesworkout
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.aatif.sevenminutesworkout.adapter.HistoryAdapter
@@ -13,9 +16,9 @@ import com.aatif.sevenminutesworkout.constants.Constants
 import com.aatif.sevenminutesworkout.databinding.ActivityHistoryBinding
 import com.aatif.sevenminutesworkout.model.Exercise
 import com.aatif.sevenminutesworkout.room.database.HistoryDatabase
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HistoryActivity : AppCompatActivity(), HistoryAdapter.HistoryAdapterListener {
 
@@ -23,6 +26,7 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.HistoryAdapterListen
     private var currentState = State.BY_EXERCISE
     private lateinit var db:HistoryDatabase
     private val adapter= HistoryAdapter(this)
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
@@ -36,10 +40,20 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.HistoryAdapterListen
         binding.tvByExercise.setOnClickListener{
             currentState = State.BY_EXERCISE
             setAnchor(currentState)
+            binding.tvByExercise.setBackgroundColor(Color.BLACK)
+            binding.tvBySet.setBackgroundColor(getColor(R.color.grey_history_page))
+            binding.tvByExercise.setTextColor(Color.WHITE)
+            binding.tvBySet.setTextColor(Color.BLACK)
+            adapter.notifyDataSetChanged()
         }
         binding.tvBySet.setOnClickListener {
             currentState = State.BY_SET
             setAnchor(currentState)
+            binding.tvBySet.setBackgroundColor(Color.BLACK)
+            binding.tvByExercise.setBackgroundColor(getColor(R.color.grey_history_page))
+            binding.tvBySet.setTextColor(Color.WHITE)
+            binding.tvByExercise.setTextColor(Color.BLACK)
+            adapter.notifyDataSetChanged()
         }
 
         binding.flHeader.doOnLayout {
@@ -95,9 +109,13 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.HistoryAdapterListen
     }
 
     private fun refreshData(){
-        CoroutineScope(Dispatchers.IO).launch{
-            val history = db.historyDao().getCompleteHistory()
-            adapter.setContent(history)
+        lifecycleScope.launch{
+             withContext(Dispatchers.IO) {
+                 val history = db.historyDao().getCompleteHistory()
+                 withContext(Dispatchers.Main){
+                     adapter.setContent(history)
+                 }
+             }
         }
     }
 
@@ -110,7 +128,11 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.HistoryAdapterListen
         startActivity(intent)
     }
 
-    private enum class State{
+    override fun getStatus(): State {
+        return currentState
+    }
+
+    enum class State{
         BY_EXERCISE,
         BY_SET
     }

@@ -11,9 +11,9 @@ interface HistoryDao {
     @Query("SELECT * FROM history")
     fun getCompleteHistory(): List<History>
 
-    @Query("SELECT * FROM history WHERE datestr >= :query_datestr")
-    fun getHistoryAfter(query_datestr: String): List<History>
+    @Query("SELECT * FROM history WHERE datestr >= :datestr")
+    fun getHistoryAfter(datestr: String): List<History>
 
-    @Query("INSERT INTO history values (:uuid , :date, :id, :name, :imageResource)")
-    fun updateHistory(uuid:String , date: String , id:Int, name:String, imageResource:Int)
+    @Query("INSERT INTO history values (:uuid , :date, :id, :name, :imageResource,:sessionUUID)")
+    fun updateHistory(uuid:String , date: String , id:Int, name:String, imageResource:Int, sessionUUID: String)
 }
