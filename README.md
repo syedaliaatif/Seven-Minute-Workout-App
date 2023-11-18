@@ -11,7 +11,7 @@ This app is a helpful app while training. You have a timer for each exercises an
       <li>See your history.</li>
     </ol>
     <p align="center">
-      <img src="https://user-images.githubusercontent.com/105696943/284023810-e1786b27-1195-4dd9-a6a1-33cf1ff0dba5.png" width="200" height="400" alt="accessibility text">
+      <img src="https://user-images.githubusercontent.com/105696943/284024348-adb06bfb-801c-4f40-a082-9fbc09c660de.png" width="200" height="400" alt="accessibility text">
    </p>
    
 # Future of the app 
