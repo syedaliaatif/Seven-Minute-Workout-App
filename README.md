@@ -39,7 +39,10 @@ This app is a helpful app while training. You have a timer for each exercises an
    <p align="center">
       <img src="https://user-images.githubusercontent.com/105696943/284024670-eaddb198-a3c3-4588-997f-b0f76262a5a6.png" width="200" height="400" alt="accessibility text">
    </p>
-7. Exercise Finishing Screen - TBD. This hasn't been created yet. 
+7. Exercise Finishing Screen - This screen acknowledges that you have finished all exercises choosen by you. It will have a home button to take you to the launch page.
+   <p align="center">
+      <img src="https://user-images.githubusercontent.com/105696943/284049387-297039bf-4d14-476f-b391-5de48761a710.png" width="200" height="400" alt="accessibility text">
+   </p>
 # Future of the app 
 1. Add history activity to the app.
 2. Allow user to create their own set of exercises and timer duration.
