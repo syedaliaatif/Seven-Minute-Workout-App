@@ -1,12 +1,15 @@
 package com.aatif.sevenminutesworkout
 
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.text.bold
@@ -38,7 +41,6 @@ class TimerActivity : AppCompatActivity() {
     private lateinit var db :HistoryDatabase
     private lateinit var sessionUUID: UUID
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTimerBinding.inflate(layoutInflater)
@@ -47,7 +49,18 @@ class TimerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         binding.tlbTimerPage.setNavigationOnClickListener {
-            onBackPressed()
+            AlertDialog.Builder(this).setMessage("Are you sure you want to go back?")
+                .setPositiveButton("Yes",object:DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        onBackPressed()
+                    }
+                })
+                .setNegativeButton("No", object : DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface?, which: Int) {
+                        dialog?.cancel()
+                    }
+
+                }).create().show()
         }
 
        db = Room.databaseBuilder(applicationContext,
@@ -102,6 +115,12 @@ class TimerActivity : AppCompatActivity() {
 
     private fun showRestView(){
         exercises.updateStatus(numExerciseCompleted,ExerciseStatus.INPROGRESS)
+        if(!isExerciseAvailable()){
+           val intent = Intent(this, FinishActivity::class.java)
+           startActivity(intent)
+           finish()
+            return
+        }
         playSound()
         hideImageView()
         showTitleView(getString(R.string.rest_title_text))

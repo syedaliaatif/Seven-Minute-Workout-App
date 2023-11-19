@@ -63,9 +63,7 @@ class HistoryAdapter(private val listener:HistoryAdapterListener): Adapter<Histo
             }
         }
         map.forEach { (_, listOfHistory) ->  historyBySet.add(listOfHistory) }
-
-        android.util.Log.d("Aatif_DBG","history: ${history}" )
-        android.util.Log.d("Aatif_DBG", "historyBySet: ${historyBySet}")
+        notifyDataSetChanged()
     }
 
     class HistoryViewHolder(itemView: View):ViewHolder(itemView){
